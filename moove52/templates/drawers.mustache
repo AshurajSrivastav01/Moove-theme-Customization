@@ -55,7 +55,7 @@
     #page-admin-search #page-wrapper #page div#custom_border_for_site_admin {
         border-color: #61bb47;
         border-radius: 5px;
-        border: 2px solid #61bb47;
+        border: 2.5px solid #61bb47;
         width: 85%;
         margin: 1rem auto;
     }
@@ -121,7 +121,72 @@
         class="drawers {{#courseindexopen}}show-drawer-left{{/courseindexopen}} {{#blockdraweropen}}show-drawer-right{{/blockdraweropen}} drag-container"
         >
         <div id="custom_border_for_site_admin">
-            <h1>Breadcrumb</h1>
+            <style>
+                .arrow-btn {
+                    position: relative;
+                    display: inline-block;
+                    background: #0069b4;
+                    color: #fff;
+                    text-decoration: none;
+                    padding: 9px 35px;
+                    font-weight: 600;
+                    /* margin-right: 30px; */
+                }
+
+                .arrow-btn:hover {
+                    color: #fff;
+                    background: #005b9c;
+                }
+
+                .arrow-btn::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: -20px;
+                    width: 0;
+                    height: 0;
+                    border-top: 22px solid transparent;
+                    border-bottom: 22px solid transparent;
+                    border-left: 20px solid #0069b4;
+                }
+
+                .arrow-btn:hover::after {
+                    border-left-color: #005b9c;
+                }
+
+                .btn-secondary-custom {
+                    background: #d9dee3;
+                    border: none;
+                    color: #333;
+                    padding: 12px 20px;
+                }
+
+                .btn-secondary-custom:hover {
+                    background: #cdd3d9;
+                }
+            </style>
+            <div class="p-4">
+                <!-- Logo -->
+                <h2 class="text-danger fw-bold mb-3">DGRV</h2>
+
+                <div class="d-flex justify-content-between align-items-center flex-wrap">
+                    <!-- Left Navigation -->
+                    <div class="d-flex gap-6 flex-wrap">
+
+                        <a href="#" class="arrow-btn">Dashboard</a>
+
+                        <a href="#" class="arrow-btn">Site administration</a>
+
+                        <a href="#" class="arrow-btn">Search</a>
+
+                    </div>
+
+                    <!-- Right Button -->
+                    <button class="btn btn-secondary-custom mt-3 mt-lg-0">
+                        Blocks editing on
+                    </button>
+                </div>
+            </div>
         </div>
         <div id="custom_border_for_site_admin">
             {{{ output.full_header }}}
