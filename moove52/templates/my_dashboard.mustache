@@ -1,0 +1,411 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+<style>
+    body {
+        background: url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80");
+        background-size: cover;
+        background-position: center;
+        min-height: 100vh;
+    }
+    
+    .dashboard_body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*padding: 20px;*/
+    }
+
+    .wrapper {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.88);
+        border-radius: 4px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .header {
+        background: #5cab4d;
+        color: #fff;
+        padding: 12px 20px;
+        font-size: 1rem;
+        font-weight: bold;
+    }
+
+    .content {
+        display: flex;
+    }
+
+    .left {
+        flex: 1;
+        padding: 20px 30px;
+    }
+
+    .right {
+        width: 280px;
+        border-left: 1px solid #ddd;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Top */
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .search {
+        position: relative;
+    }
+
+    .search input {
+        width: 240px;
+        height: 40px;
+        border: 1px solid #b8b8b8;
+        border-radius: 4px;
+        padding-left: 45px;
+        font-size: 18px;
+    }
+
+    .search i {
+        position: absolute;
+        left: 15px;
+        top: 12px;
+        color: #7b7b7b;
+    }
+
+    .toggle {
+        display: flex;
+    }
+
+    .toggle button {
+        width: 58px;
+        height: 42px;
+        border: 1px solid #ccc;
+        background: #ececec;
+        cursor: pointer;
+        font-size: 22px;
+        color: #777;
+    }
+
+    .toggle button.active {
+        background: #d7d7d7;
+    }
+
+    /* Stats */
+
+    .stats {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 45px;
+        text-align: center;
+    }
+
+    .card {
+        width: 18%;
+    }
+
+    .card h1 {
+        font-size: 2.15rem;
+        color: #111;
+    }
+
+    .card p {
+        color: #666;
+        margin-top: 10px;
+        font-size: 1rem;
+    }
+
+    /* Sidebar */
+
+    .menu {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .menu-item {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: #efefef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0074c8;
+        font-size: 22px;
+    }
+
+    .menu-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #222;
+    }
+
+    .menu-text {
+        color: #666;
+        font-size: 15px;
+        margin-top: 4px;
+        line-height: 1.3;
+    }
+
+    .grid-view {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 50px;
+        display: none;
+    }
+
+    .grid-card {
+        height: 140px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #777;
+        font-size: 18px;
+    }
+
+    .dashboard-block-area {
+        margin-top: 40px;
+        display: block;
+    }
+
+    .dashboard-block-area .grid-card {
+        height: 220px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,.1);
+    }
+    
+    #page.drawers .main-inner{
+        margin-top: 0;
+        padding: 0px;
+        background-color: transparent;
+    }
+    
+    .main-inner{
+        max-width: 90% !important;
+    }
+    
+    #page.drawers div[role="main"]{
+        padding-right: 0px;
+        padding-left: 0px;
+    }
+     header#page-header{
+         display: none;
+     }
+    #region-main {
+        background-color: white;
+        border-radius: 6px;
+        margin-top: 2.4%;
+    }
+    
+    #maincontent {
+        display: none;
+    }
+
+    @media (max-width: 1000px) {
+        .content {
+            flex-direction: column;
+        }
+
+        .right {
+            width: 100%;
+            border-left: none;
+            border-top: 1px solid #ddd;
+        }
+
+        .stats {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            width: 45%;
+        }
+    }
+</style>
+<div class="dashboard_body">
+    <div class="wrapper">
+    <div class="header">Home</div>
+
+    <div class="content">
+        <div class="left">
+            <div class="topbar">
+                <div class="search">
+                    <i class="fa fa-search"></i>
+                    <input type="text" placeholder="Search by Course" />
+                </div>
+
+                <div class="toggle">
+                    <button class="active" id="listBtn">
+                        <i class="fa fa-list"></i>
+                    </button>
+
+                    <button id="gridBtn">
+                        <i class="fa fa-table-cells"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stats" id="stats">
+                <div class="card">
+                    <h1>0</h1>
+                    <p>Courses in progress</p>
+                </div>
+
+                <div class="card">
+                    <h1>0</h1>
+                    <p>Completed course</p>
+                </div>
+
+                <div class="card">
+                  <h1>0</h1>
+                  <p>Training time</p>
+                </div>
+
+                <div class="card">
+                  <h1>0</h1>
+                  <p>Badges</p>
+                </div>
+
+                <div class="card">
+                  <h1>0</h1>
+                  <p>Points</p>
+                </div>
+            </div>
+
+            <div id="grid2" class="dashboard-block-area">
+              <div class="grid-card">
+                  {{{ output.blocks('content') }}}
+              </div>
+            </div>
+            <div class="grid-view" id="grid">
+                <div class="grid-card">Style 2</div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="menu">
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa fa-book-open"></i>
+                    </div>
+                    <div>
+                        <a href="{{baseUrl}}/local/catalogue" style="text-decoration: none;">
+                            <div class="menu-title">Course Catalog</div>
+                            <div class="menu-text">Find New Courses</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa fa-chart-column"></i>
+                    </div>
+                    <div>
+                        <a href="{{baseUrl}}/user/profile.php?id={{userid}}" style="text-decoration: none;">
+                            <div class="menu-title">Progress</div>
+                            <div class="menu-text">
+                                Find out how you are doing with your training
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa fa-comments"></i>
+                    </div>
+                    <div>
+                        <a href="#" style="text-decoration: none;">
+                            <div class="menu-title">Discussion</div>
+                            <div class="menu-text">Hold conversations with fellow users</div>
+                        <a/>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa fa-calendar-days"></i>
+                    </div>
+                    <div>
+                        <a href="{{baseUrl}}/calendar/view.php?view=month" style="text-decoration: none;">
+                            <div class="menu-title">Calendar</div>
+                            <div class="menu-text">View current and upcoming events</div>
+                        </a>
+                    </div>
+                </div>
+                
+                {{#isadmin}}
+                <div class="menu-item">
+                    <div class="icon">
+                        <i class="fa fa-gear"></i>
+                    </div>
+                    <div>
+                        <a href="{{baseUrl}}/admin/search.php" style="text-decoration: none;">
+                            <div class="menu-title">Site Administration</div>
+                            <div class="menu-text">Administration controls</div>
+                        </a>
+                    </div>
+                </div>
+                {{/isadmin}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+    const listBtn = document.getElementById("listBtn");
+    const gridBtn = document.getElementById("gridBtn");
+
+    const stats = document.getElementById("stats");
+    const blockArea = document.getElementById("grid2");
+    const grid = document.getElementById("grid");
+
+    // Initial State
+    stats.style.display = "flex";
+    blockArea.style.display = "block";
+    grid.style.display = "none";
+
+    // List View
+    listBtn.addEventListener("click", function () {
+
+        listBtn.classList.add("active");
+        gridBtn.classList.remove("active");
+
+        stats.style.display = "flex";
+        blockArea.style.display = "block";
+        grid.style.display = "none";
+
+    });
+
+    // Grid View
+    gridBtn.addEventListener("click", function () {
+
+        gridBtn.classList.add("active");
+        listBtn.classList.remove("active");
+
+        stats.style.display = "none";
+        blockArea.style.display = "none";
+        grid.style.display = "grid";
+
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>

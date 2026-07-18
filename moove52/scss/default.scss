@@ -1,0 +1,39 @@
+@import "moove/transitions";
+@import "moove/variables";
+@import "moove/darkandlightvariables";
+@import "../../boost/scss/preset/default";
+@import "moove/general";
+@import "moove/cards";
+@import "moove/pages";
+@import "moove/blocks";
+@import "moove/drawers";
+@import "moove/navbar";
+@import "moove/footer";
+@import "moove/breadcrumb";
+@import "moove/course";
+@import "moove/mixins/accessibilityfontsize";
+@import "moove/accessibilitybar";
+@import "moove/accessibilitystyles";
+@import "moove/login";
+@import "moove/mydashboard";
+@import "moove/frontpage";
+@import "moove/profile";
+@import "moove/enrol";
+@import "moove/quiz";
+
+.custom-login-navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:16px 40px;
+    background:#fff;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+.custom-login-navbar img{
+    height:40px;
+}
+.custom-login-navbar a{
+    text-decoration:none;
+    color:#333;
+    font-weight:600;
+}
