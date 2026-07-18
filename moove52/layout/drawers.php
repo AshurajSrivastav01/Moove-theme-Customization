@@ -115,6 +115,7 @@ $templatecontext = [
     'overflow' => $overflow,
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
+    'is_site_admin_page' => str_starts_with($PAGE->pagetype, 'admin-'),
 ];
 
 $themesettings = new \theme_moove52\util\settings();

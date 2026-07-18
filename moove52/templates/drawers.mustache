@@ -188,6 +188,9 @@
                 </div>
             </div>
         </div>
+        {{#is_site_admin_page}}
+            {{is_site_admin_page}}
+        {{/is_site_admin_page}}
         <div id="custom_border_for_site_admin">
             {{{ output.full_header }}}
     
