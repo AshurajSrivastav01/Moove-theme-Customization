@@ -63,10 +63,29 @@
     .secondary-navigation{
         position: static !important;
         background-color: transparent;
+        filter: none;
     }
     
     .secondary-navigation .moremenu .nav-tabs .nav-link{
         color: #0f6fc5 !important;
+    }
+
+    .secondary-navigation .moremenu .nav-tabs .nav-link:hover, .secondary-navigation .moremenu .nav-tabs .nav-link:focus {
+        /* background-color: #0b347e; */
+        color: gray !important;
+    }
+    .secondary-navigation .moremenu .nav-tabs .nav-link:hover, .secondary-navigation .moremenu .nav-tabs .nav-link:focus {
+        background-color: transparent !important;
+    }
+
+    .secondary-navigation{
+        filter: none;
+    }
+
+    .secondary-navigation .moremenu .nav-tabs .nav-link.active {
+        border-bottom: 2px solid #fff;
+        font-weight: 700;
+        color: gray !important;
     }
 </style>
 {{/is_site_admin_page}}
