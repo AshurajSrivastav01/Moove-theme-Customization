@@ -116,6 +116,7 @@ $templatecontext = [
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
     'is_site_admin_page' => str_starts_with($PAGE->pagetype, 'admin-'),
+    'pagetype' => $PAGE->pagetype,  // Add this line
 ];
 
 $themesettings = new \theme_moove52\util\settings();
