@@ -94,6 +94,8 @@ $regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settin
 $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
+error_log('pagetype: ' . $PAGE->pagetype);
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),

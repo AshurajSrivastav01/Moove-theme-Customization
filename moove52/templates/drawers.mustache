@@ -53,6 +53,10 @@
 
 {{#is_site_admin_page}}
 <style>
+    #page.drawers .main-inner{
+        margin: 0 auto;
+        max-width: 100% !important;
+    }
     div#custom_border_for_site_admin {
         border-color: #61bb47;
         border-radius: 5px;
@@ -153,9 +157,11 @@
         data-usertour="scroller" 
         class="drawers {{#courseindexopen}}show-drawer-left{{/courseindexopen}} {{#blockdraweropen}}show-drawer-right{{/blockdraweropen}} drag-container"
         >
+        <div id="custom_border_for_site_admin">
+            pagetype: {{pagetype}}
+        </div>
         {{#is_site_admin_page}}
             <div id="custom_border_for_site_admin">
-                pagetype: {{pagetype}}
                 <style>
                     .arrow-btn {
                         position: relative;
