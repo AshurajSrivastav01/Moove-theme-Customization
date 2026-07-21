@@ -53,6 +53,12 @@
 
 {{#is_site_admin_page}}
 <style>
+    body{
+        background-color: white !important;
+    }
+    .navbar.fixed-top{
+        box-shadow: 0px 2px 9px 2px #80808038 !important
+    }
     #page.drawers .main-inner{
         margin: 0 auto;
         max-width: 100% !important;
@@ -157,9 +163,6 @@
         data-usertour="scroller" 
         class="drawers {{#courseindexopen}}show-drawer-left{{/courseindexopen}} {{#blockdraweropen}}show-drawer-right{{/blockdraweropen}} drag-container"
         >
-        <div id="custom_border_for_site_admin">
-            pagetype: {{pagetype}}
-        </div>
         {{#is_site_admin_page}}
             <div id="custom_border_for_site_admin">
                 <style>
@@ -232,15 +235,17 @@
         {{/is_site_admin_page}}
 
         <div id="custom_border_for_site_admin">
-            {{{ output.full_header }}}
 
-            {{#secondarymoremenu}}
-                <div class="secondary-navigation d-print-none moove">
-                    <div class="moove-container-fluid">
-                        {{> core/moremenu}}
+            {{#is_site_admin_search_page}}
+                {{{ output.full_header }}}
+                {{#secondarymoremenu}}
+                    <div class="secondary-navigation d-print-none moove">
+                        <div class="moove-container-fluid">
+                            {{> core/moremenu}}
+                        </div>
                     </div>
-                </div>
-            {{/secondarymoremenu}}
+                {{/secondarymoremenu}}
+            {{/is_site_admin_search_page}}
     
             <div id="topofscroll" class="main-inner">
                 <div class="drawer-toggles d-flex">

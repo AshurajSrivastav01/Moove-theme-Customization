@@ -94,8 +94,6 @@ $regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settin
 $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
-error_log('pagetype: ' . $PAGE->pagetype);
-
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
@@ -117,8 +115,8 @@ $templatecontext = [
     'overflow' => $overflow,
     'headercontent' => $headercontent,
     'addblockbutton' => $addblockbutton,
+    'is_site_admin_search_page' => $PAGE->pagetype === 'admin-search' ? true: false,
     'is_site_admin_page' => str_starts_with($PAGE->pagetype, 'admin-'),
-    'pagetype' => $PAGE->pagetype,  // Add this line
 ];
 
 $themesettings = new \theme_moove52\util\settings();
