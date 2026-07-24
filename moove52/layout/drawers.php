@@ -87,14 +87,61 @@ if ($PAGE->has_secondary_navigation()) {
 $primary = new core\navigation\output\primary($PAGE);
 $renderer = $PAGE->get_renderer('core');
 $primarymenu = $primary->export_for_template($renderer);
-$buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_actions() && !$PAGE->has_secondary_navigation();
+
+$iscoursedetailpage = !empty($PAGE->course) && !empty($PAGE->course->id) &&
+    $PAGE->course->id != SITEID &&
+    ($PAGE->context->contextlevel === CONTEXT_COURSE ||
+    str_starts_with($PAGE->pagetype, 'course-view-') ||
+    $PAGE->pagetype === 'course-view');
+
+$buildregionmainsettings = !$PAGE->include_region_main_settings_in_header_actions();
 // If the settings menu will be included in the header then don't add it here.
-$regionmainsettingsmenu = $buildregionmainsettings ? $OUTPUT->region_main_settings_menu() : false;
+if ($iscoursedetailpage) {
+    $regionmainsettingsmenu = $OUTPUT->region_main_settings_menu();
+} else {
+    $regionmainsettingsmenu = $buildregionmainsettings && !$PAGE->has_secondary_navigation() ?
+        $OUTPUT->region_main_settings_menu() : false;
+}
 
 $header = $PAGE->activityheader;
 $headercontent = $header->export_for_template($renderer);
 
+$courseheading = '';
+if (!empty($PAGE->course->fullname)) {
+    $courseheading = format_string($PAGE->course->fullname, true, ['context' => $PAGE->context]);
+}
+
+$courseediturl = '';
+if ($iscoursedetailpage && !empty($PAGE->course->id)) {
+    $courseediturl = (new moodle_url('/course/edit.php', ['id' => $PAGE->course->id]))->out(false);
+}
+
 $bodyattributes = $OUTPUT->body_attributes($extraclasses);
+
+$breadcrumbitems = [];
+if ($PAGE->navbar && $PAGE->navbar->get_items()) {
+    foreach ($PAGE->navbar->get_items() as $item) {
+        $text = $item->text instanceof \lang_string ? $item->text->out() : $item->text;
+        $url = null;
+
+        if ($item->has_action()) {
+            if ($item->action instanceof \moodle_url) {
+                $url = $item->action->out();
+            } else if ($item->action instanceof \action_link) {
+                $url = $item->action->url->out();
+            }
+        }
+
+        $breadcrumbitems[] = [
+            'text' => $text,
+            'url' => $url,
+            'islast' => $item->is_last(),
+        ];
+    }
+}
+
+$hasbreadcrumb = !empty($breadcrumbitems);
+
 $templatecontext = [
     'sitename' => format_string($SITE->shortname, true, ['context' => \core\context\course::instance(SITEID), "escape" => false]),
     'output' => $OUTPUT,
@@ -111,12 +158,19 @@ $templatecontext = [
     'langmenu' => $primarymenu['lang'],
     'forceblockdraweropen' => $forceblockdraweropen,
     'regionmainsettingsmenu' => $regionmainsettingsmenu,
-    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu),
+    'hasregionmainsettingsmenu' => !empty($regionmainsettingsmenu) ? true : false,
     'overflow' => $overflow,
     'headercontent' => $headercontent,
+    'courseheading' => $courseheading,
+    'courseediturl' => $courseediturl,
+    'breadcrumbitems' => $breadcrumbitems,
+    'hasbreadcrumb' => $hasbreadcrumb,
+    'iscoursedetailpage' => $iscoursedetailpage,
     'addblockbutton' => $addblockbutton,
     'is_site_admin_search_page' => $PAGE->pagetype === 'admin-search' ? true: false,
+    'is_breadcrumb' => $hasbreadcrumb,
     'is_site_admin_page' => str_starts_with($PAGE->pagetype, 'admin-'),
+    'pagetype' => $PAGE->pagetype,
 ];
 
 $themesettings = new \theme_moove52\util\settings();
