@@ -16,12 +16,17 @@
 }}
 <style>
     #page {
-        margin: 130px 2.5% 2rem 2.5% !important;
-        width: 95% !important;
+        margin: 130px 7.5% 2rem 7.5% !important;
+        width: 85% !important;
     }
     .main-inner{
         max-width: 100% !important;
         border: 2.5px solid #61bb47;
+        padding-right: 90px !important;
+        padding-left: 90px !important;
+    }
+    .activity-item{
+        padding: 0px !important;
     }
     #collapsesectionid103, #collapsesections{
         display: none !important;
@@ -43,6 +48,15 @@
     .course-section-header {
         justify-content: center;
         flex-direction: column;
+    }
+    body:not(.editing) .activity-item {
+        border-bottom: none !important;
+    }
+    .activityname a {
+        font-size: 14px !important;
+        font-weight: 500 !important;
+        color: #0f6aad !important;
+        text-decoration: underline !important;
     }
 </style>
 <!-- New Layout for Moove Theme -->
@@ -119,5 +133,33 @@
     {{/header}}
 </div>
 <div id="coursecontentcollapseid{{id}}" class="content {{^iscoursedisplaymultipage}}{{^sitehome}}{{^displayonesection}}course-content-item-content collapse {{^contentcollapsed}}show{{/contentcollapsed}}{{/displayonesection}}{{/sitehome}}{{/iscoursedisplaymultipage}}">
-
+    <div class="{{#hasavailability}}description{{/hasavailability}}" data-for="sectioninfo">
+        {{#isstealth}}
+        <div class="alert alert-warning">
+            {{#str}} orphansectionwarning, core_courseformat {{/str}}
+        </div>
+        {{/isstealth}}
+        {{#summary}}
+            {{^isdelegated}}
+                {{$ core_courseformat/local/content/section/summary }}
+                    {{> core_courseformat/local/content/section/summary }}
+                {{/ core_courseformat/local/content/section/summary }}
+            {{/isdelegated}}
+        {{/summary}}
+        {{#availability}}
+            {{$ core_courseformat/local/content/section/availability }}
+                {{> core_courseformat/local/content/section/availability }}
+            {{/ core_courseformat/local/content/section/availability }}
+        {{/availability}}        
+    </div>
+    {{#cmsummary}}
+        {{$ core_courseformat/local/content/section/cmsummary }}
+            {{> core_courseformat/local/content/section/cmsummary }}
+        {{/ core_courseformat/local/content/section/cmsummary }}
+    {{/cmsummary}}
+    {{#cmlist}}
+        {{$ core_courseformat/local/content/section/cmlist }}
+            {{> core_courseformat/local/content/section/cmlist }}
+        {{/ core_courseformat/local/content/section/cmlist }}
+    {{/cmlist}}
 </div>

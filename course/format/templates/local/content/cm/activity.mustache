@@ -106,7 +106,7 @@
     {{/ core_courseformat/local/content/cm/badges }}
 
     {{! Group mode }}
-    {{#groupmodeinfo}}
+<!--    {{#groupmodeinfo}}
         <div
             class="activity-groupmode-info align-self-start ms-sm-2"
             data-region="groupmode"
@@ -115,10 +115,10 @@
                 {{> core_courseformat/local/content/cm/groupmode}}
             {{/ core_courseformat/local/content/cm/groupmode}}
         </div>
-    {{/groupmodeinfo}}
+    {{/groupmodeinfo}}  -->
 
     {{! Completion }}
-    {{#completion}}
+    <!-- {{#completion}}
         {{#hascompletion}}
             <div class="activity-completion align-self-start ms-sm-2">
                 {{$ core_courseformat/local/content/cm/activity_info}}
@@ -126,6 +126,28 @@
                 {{/ core_courseformat/local/content/cm/activity_info}}
             </div>
         {{/hascompletion}}
+    {{/completion}} -->
+
+    <style>
+        .activity-icon img {
+            filter: none !important;
+        }
+    </style>
+
+    {{#completion}}
+        {{#overallcomplete}}
+            <img 
+                class="icon iconsmall" 
+                src="{{baseUrl}}/theme/moove52/pix/completion-auto-enabled.png" 
+                id="yui_3_17_2_1_1784801493335_41" 
+                style="width: 22px; height: 22px;filter: invert(36%) sepia(85%) saturate(1313%) hue-rotate(85deg) brightness(93%) contrast(101%);">
+        {{/overallcomplete}}
+        {{^overallcomplete}}
+            <img 
+                class="icon iconsmall" 
+                src="{{baseUrl}}/theme/moove52/pix/completion-auto-enabled.png" 
+                id="yui_3_17_2_1_1784801493335_41" style="width: 22px; height: 22px;">
+        {{/overallcomplete}}
     {{/completion}}
 
     {{! Action menu }}

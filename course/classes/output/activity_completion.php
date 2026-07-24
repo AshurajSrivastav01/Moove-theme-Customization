@@ -89,6 +89,7 @@ class activity_completion implements renderable, templatable {
             'overrideby' => $overrideby,
             'completiondetails' => $this->get_completion_details($overrideby),
             'accessibledescription' => $this->get_accessible_description($overrideby, $overallcompletion),
+            'isoverallcomplete' => $isoverallcomplete,
             // For backward compatibility, the template uses small button by default when not set normal size.
             'normalbutton' => !$this->smallbutton,
         ];
